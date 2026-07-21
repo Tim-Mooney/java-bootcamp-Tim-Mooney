@@ -1,0 +1,1 @@
+Pressing enter leaves a newline character and the nextLine() that isn't stored eats that and discards it.

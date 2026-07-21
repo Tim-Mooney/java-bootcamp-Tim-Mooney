@@ -1,0 +1,1 @@
+Parsing the int or double from the scanned in line is better because it automatically deals with the newline character from ex5. 
