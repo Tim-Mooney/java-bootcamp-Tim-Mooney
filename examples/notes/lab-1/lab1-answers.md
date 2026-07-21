@@ -52,6 +52,7 @@ The examples we have seen are relatively simple, but the overall structure of th
 3. mvn clean. I did this at my internships. Then recompile.
 4. The JVM needs to start up before the application can be run.
 
+
 1. Javac compiles a .java file into a .class file containing bytecode.
 2. Machine readable code meant for execution.
 3. It runs on the JVM so any OS can expect the same output.
