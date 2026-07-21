@@ -1,0 +1,2 @@
+I understand the loops and got the expected output on all of them. I always do .equalsIgnoreCase because I'm lazy when testing and sometimes have capslock on.
+Do while runs its body once because it does the body then checks the condition. The condition is checking if it should run the code in the body again, it's not checking if the code in the body should be run at all.
