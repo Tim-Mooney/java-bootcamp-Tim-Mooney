@@ -1,0 +1,1 @@
+I had never used the -> in switch cases that looks so much better. I am going to start doing that.
