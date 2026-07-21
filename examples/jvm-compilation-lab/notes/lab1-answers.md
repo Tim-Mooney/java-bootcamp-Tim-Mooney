@@ -15,7 +15,7 @@ HelloWorld.java is the code written in java and can be read and edited by a huma
 
 Calling add() pushes a frame onto the stack and when add() returns it pops the frame from the stack
 
-![](/Users/timmooney/Desktop/Screenshot 2026-07-21 at 11.12.40 AM.png)
+![](/Users/timmooney/java-bootcamp/examples/jvm-compilation-lab/notes/screenshots/Screenshot 2026-07-21 at 11.12.40 AM.png)
 
 ![](/Users/timmooney/Desktop/Screenshot 2026-07-21 at 10.45.41 AM.png)
 
