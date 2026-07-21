@@ -15,9 +15,9 @@ HelloWorld.java is the code written in java and can be read and edited by a huma
 
 Calling add() pushes a frame onto the stack and when add() returns it pops the frame from the stack
 
-![](/screenshots/Screenshot 2026-07-21 at 11.12.40 AM.png)
+![](./screenshots/img1.png)
 
-![](/Users/timmooney/Desktop/Screenshot 2026-07-21 at 10.45.41 AM.png)
+![](./screenshots/img2.png)
 
 If I add a 0 to MemoryDemo.java and make the heap 64mb it crashes with a OOM error but if I run it without limiting the heap size it runs. This demonstrates the heap size changing.
 
@@ -26,4 +26,4 @@ size_t MaxHeapSize                              = 4294967296                    
 size_t SoftMaxHeapSize                          = 4294967296                             {manageable} {ergonomic}\
 bool UseG1GC                                  = true                                      {product} {ergonomic}
 
-![](/Users/timmooney/Desktop/Screenshot 2026-07-21 at 11.01.46 AM.png)
+![](./screenshots/img3.png)
