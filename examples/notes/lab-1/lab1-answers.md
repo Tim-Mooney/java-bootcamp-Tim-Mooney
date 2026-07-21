@@ -1,6 +1,15 @@
 **What is the difference between HelloWorld.java and HelloWorld.class?**
 
-HelloWorld.java is the code written in java and can be read and edited by a human. HelloWorld.class is the bytecode and cannot be understood by a human. Compiling the .java file creates the .class file. 
+HelloWorld.java is the code written in java and can be read and edited by a human. HelloWorld.class is the bytecode and cannot be understood by a human. Compiling the .java file creates the .class file.
+
+1. Javac compiles a .java file into a .class file containing bytecode.
+2. Machine readable code meant for execution.
+3. It runs on the JVM so any OS can expect the same output.
+4. Executing bytecode
+5. The heap
+6. The Stack
+7. The JVM loads, verifies, and executes it.
+
 
 
 ![](screenshots/EmployeeModel.png)
@@ -53,10 +62,3 @@ The examples we have seen are relatively simple, but the overall structure of th
 4. The JVM needs to start up before the application can be run.
 
 
-1. Javac compiles a .java file into a .class file containing bytecode.
-2. Machine readable code meant for execution.
-3. It runs on the JVM so any OS can expect the same output.
-4. Executing bytecode
-5. The heap
-6. The Stack
-7. The JVM loads, verifies, and executes it.
