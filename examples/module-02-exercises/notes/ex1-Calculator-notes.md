@@ -1,0 +1,1 @@
+Double is preferred because the user might type in a double. Also, 5/3 would say 1 if the result was an integer and that is inaccurate
