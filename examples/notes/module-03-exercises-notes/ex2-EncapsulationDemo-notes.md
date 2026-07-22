@@ -1,0 +1,1 @@
+setBalance does not exist because then a user could give themself infinite money. Once the initialBalance is set, the balance can only be manipulated bc depositing or withdrawing money.

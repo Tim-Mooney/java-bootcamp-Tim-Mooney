@@ -1,0 +1,3 @@
+super() is used in this exercise for the child classes of Account to get the initial balance, super() allows the child classes to access parent class members.
+
+Runtime polymorphism is shown by the results of the withdraw operation being different on different account types. Savings withdraw doesn't add the $2.00 charge but Current account withdraw does. They are written the same but applied to different objects, so the result is different.
