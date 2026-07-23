@@ -92,14 +92,19 @@ public class StudentManager {
             System.out.println("No students to display.");
         }
         else{
-            for(int i = 0; i < studentCount - 1; i++){
+            System.out.println("----------------------------------------------------------");
+            System.out.println("ID      Name                 Course          Marks");
+            for(int i = 0; i <= studentCount - 1; i++){
+                System.out.println("----------------------------------------------------------");
                 System.out.printf("%-8d %-20s %-15s %-8.2f%n",
                         students[i].getStudentId(),
                         students[i].getName(),
                         students[i].getCourse(),
                         students[i].getMarks());
             }
+            System.out.println("----------------------------------------------------------");
         }
+
     }
 
     public void searchStudent(){
@@ -140,9 +145,6 @@ public class StudentManager {
             }
         }
         avg = avg / (double)studentCount;
-        System.out.println("Average marks: "+avg);
+        System.out.printf("Average marks: %.2f",avg);
     }
-
-    // Methods addStudent, displayStudents, searchStudent, calculateAverage
-    // will be filled in later steps.
 }
