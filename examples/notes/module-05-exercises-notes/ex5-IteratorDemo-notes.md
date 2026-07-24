@@ -1,0 +1,1 @@
+Iterator.hasNext() moves the targeted value down the List. So .remove removes the title currently targeted. 

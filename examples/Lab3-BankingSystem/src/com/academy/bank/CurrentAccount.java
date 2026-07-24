@@ -3,8 +3,8 @@ package com.academy.bank;
 public class CurrentAccount extends Account implements Printable{
 
     private double transactionFee;
-
-    public SavingsAccount(String accountNumber, double balance, Customer customer, double transactionFee){
+    //changed this to CurrentAccount if this doesnt work it was SavingsAccount idk if copy paste error
+    public CurrentAccount(String accountNumber, double balance, Customer customer, double transactionFee){
         super(accountNumber);
         super(balance);
         super(customer);
