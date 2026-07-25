@@ -45,10 +45,6 @@ public class MemoryLeakDemo {
                 MemoryMonitor.printMemoryReport("After "+ employeesAdded + " Objects");
             }
         }
-
-        // TODO: add Employee(i, "Employee-" + i) for i=1..targetCount
-        // TODO: every step objects, print count + MemoryMonitor.printMemoryReport
-        //throw new UnsupportedOperationException("TODO");
     }
 
     private static void demonstrateFix() {
@@ -69,11 +65,6 @@ public class MemoryLeakDemo {
         System.out.println("Triggering garbage collection...");
         MemoryMonitor.triggerGarbageCollection();
         MemoryMonitor.printMemoryReport("After GC");
-
-
-        // TODO: create local ArrayList; add 500_000 employees; print After Allocation
-        // TODO: clear list, null it, trigger GC, print After GC
-        //throw new UnsupportedOperationException("TODO");
     }
 
     private static void printUsage() {

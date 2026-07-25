@@ -34,10 +34,5 @@ public class GarbageCollectionDemo {
         long elapsedMillis = (System.nanoTime() - startTime) / 1_000_000;
         System.out.println("Execution time: "+ elapsedMillis+"ms");
 
-        // TODO: fill objects[i] = new DemoObject("Object-" + i)
-        // TODO: print Objects Created count; printMemoryReport After Allocation
-        // TODO: set objects = null; trigger GC; print After GC report + elapsed ms
-        // Tip: elapsedMillis = (System.nanoTime() - startTime) / 1_000_000
-        //throw new UnsupportedOperationException("TODO");
     }
 }
