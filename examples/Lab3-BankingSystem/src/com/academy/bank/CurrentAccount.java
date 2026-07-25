@@ -5,9 +5,7 @@ public class CurrentAccount extends Account implements Printable{
     private double transactionFee;
     //changed this to CurrentAccount if this doesnt work it was SavingsAccount idk if copy paste error
     public CurrentAccount(String accountNumber, double balance, Customer customer, double transactionFee){
-        super(accountNumber);
-        super(balance);
-        super(customer);
+        super(accountNumber, balance, customer);
         this.transactionFee = transactionFee;
     }
 
@@ -21,7 +19,7 @@ public class CurrentAccount extends Account implements Printable{
         System.out.println("Current Account");
         System.out.println("Account number: " + getAccountNumber());
         System.out.println("Customer: " + getCustomer().getName());
-        System.out.println("Balance: " + balance);
+        System.out.println("Balance: " + getBalance());
         System.out.println("Transaction fee: " + transactionFee);
     }
 

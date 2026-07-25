@@ -28,247 +28,133 @@ public class BankService {
     }
 
     public void createCustomer() {
-        String choiceInput;
-        String customerID;
-        String name;
-        String email;
-        String phone;
+        if(customerCount >= MAX_CUSTOMERS){
+            System.out.println("Full of customers");
+            return;
+        }
 
         System.out.print("Enter customer ID: ");
-        choiceInput = scanner.nextLine().trim();
-        if (choiceInput.isEmpty()) {
+        String customerId = scanner.nextLine().trim();
+        if (customerId.isEmpty()) {
             System.out.println("Empty customer ID.");    //get ID
             return;
         }
-        for(int i = 0; i < customerCount; i++){
-            if(customers[i].getCustomerId().equals(choiceInput)){
-                System.out.println("Customer ID already in use.");
-            }
+        if(findCustomer(customerId) != null){
+            System.out.println("Customer ID taken");
+            return;
         }
-        customerID = choiceInput;
 
-        System.out.println("Enter name: ");
-        if (choiceInput.isEmpty()) {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine().trim();
+        if (name.isEmpty()) {
             System.out.println("Must enter a name.");    //get name
             return;
         }
-        name = choiceInput;
 
-        System.out.println("Enter an email: ");
-        if (choiceInput.isEmpty()) {
+        System.out.print("Enter an email: ");
+        String email = scanner.nextLine().trim();
+        if (email.isEmpty()) {
             System.out.println("Must enter an email.");    //get email
             return;
         }
-        email = choiceInput;
 
-        System.out.println("Enter a phone number: ");
-        if (choiceInput.isEmpty()) {
+        System.out.print("Enter a phone number: ");
+        String phone = scanner.nextLine().trim();
+        if (phone.isEmpty()) {
             System.out.println("Must enter a phone number.");    //get phone
             return;
         }
 
-        phone = choiceInput;
 
-        customers[customerCount] = new Customer(customerID, name, email, phone);
-        customerCount++;
+        customers[customerCount++] = new Customer(customerId, name, email, phone);
 
         System.out.println("Customer created successfully.");
     }
 
     public void createSavingsAccount() {
-
-        String choiceInput;
-        Customer customer;
-        Double initBal;
-        Double interest;
-
-        System.out.print("Enter customer ID: ");
-        choiceInput = scanner.nextLine().trim();
-        if (choiceInput.isEmpty()) {
-            System.out.println("Empty customer ID.");    //get ID
+        if(accountCount >= MAX_ACCOUNTS){
+            System.out.println("Accounts full");
             return;
         }
 
-        for(int i = customerCount-1; i > 0; i--) {
-            if (customers[i].getCustomerId().equals(choiceInput)) {
-                customer = customers[i];
-                break;
-            }
+        Customer customer = readExistingCustomer();
+        if(customer == null){
             return;
         }
 
-
-        System.out.print("Enter initial balance: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            initBal = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
-            return;
-        }
-
-        System.out.print("Enter interest rate: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            interest = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
-            return;
-        }
+        double initBal = readPositiveAmount("Enter initial balance: ");
+        double interest = readPositiveAmount("Enter interest rate: ");
 
         SavingsAccount account = new SavingsAccount(Integer.toString(nextAccountNumber), initBal, customer, interest);
         nextAccountNumber++;
         accounts[accountCount] = account;
         accountCount++;
 
+        System.out.println("Created savings account");
+        account.printDetails();
+
     }
 
     public void createCurrentAccount() {
 
-        String choiceInput;
-        Customer customer;
-        Double initBal;
-        Double fee;
-
-        System.out.print("Enter customer ID: ");
-        choiceInput = scanner.nextLine().trim();
-        if (choiceInput.isEmpty()) {
-            System.out.println("Empty customer ID.");    //get ID
+        if(accountCount >= MAX_ACCOUNTS){
+            System.out.println("Accounts full");
             return;
         }
 
-        for(int i = customerCount-1; i > 0; i--){
-            if(customers[i].getCustomerId().equals(choiceInput)){
-                customer = customers[i];
-                break;
-            }
-        }
-
-
-        System.out.print("Enter initial balance: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            initBal = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
+        Customer customer = readExistingCustomer();
+        if(customer == null){
             return;
         }
 
-        System.out.print("Enter transaction fee: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            fee = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
-            return;
-        }
+        double initBal = readPositiveAmount("Enter initial balance: ");
+        double fee = readPositiveAmount("Enter transaction fee: ");
 
         CurrentAccount account = new CurrentAccount(Integer.toString(nextAccountNumber), initBal, customer, fee);
         nextAccountNumber++;
         accounts[accountCount] = account;
         accountCount++;
 
+        System.out.println("Created current account");
+        account.printDetails();
 
     }
 
     public void deposit() {
-        String choiceInput;
-        Account account;
-        String accountNumber;
-        Double amount;
-
-
-        System.out.print("Enter account number: ");
-        choiceInput = scanner.nextLine().trim();
-        if (choiceInput.isEmpty()) {
-            System.out.println("Empty account number.");    //get account number
+        Account account = readExistingAccount();
+        if(account == null){
             return;
         }
 
-        for(int i = accountCount-1; i > 0; i--){
-            if(accounts[i].getAccountNumber().equals(choiceInput)){
-                account = accounts[i];
-                break;
-            }
-        }
-        accountNumber = choiceInput;
+        double amount = readPositiveAmount("Enter the amount for the deposit: ");   //this allows you to deposit 0 which I guess doesn't hurt anything
 
-        System.out.println("Enter the amount you want to deposit: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            amount = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
-            return;
-        }
-        if(amount <= 0){
-            System.out.println("Amount must be greater than 0");
-            return;
-        }
 
         account.deposit(amount);
 
-
-
-        Transaction transaction = new Transaction(Integer.toString(nextTransactionNumber), amount, "DEPOSIT", LocalDate.now().toString(), accountNumber);
-        nextTransactionNumber++;
+        recordTransaction(account.getAccountNumber(), amount, "DEPOSIT");
         System.out.println("Balance updated: "+ account.getBalance());
     }
 
     public void withdraw() {
-        String choiceInput;
-        Account account;
-        String accountNumber;
-        Double amount;
-
-
-        System.out.print("Enter account number: ");
-        choiceInput = scanner.nextLine().trim();
-        if (choiceInput.isEmpty()) {
-            System.out.println("Empty account number.");    //get account number
+        Account account = readExistingAccount();
+        if(account == null){
             return;
         }
 
-        for(int i = accountCount-1; i > 0; i--){
-            if(accounts[i].getAccountNumber().equals(choiceInput)){
-                account = accounts[i];
-                break;
-            }
+        double amount = readPositiveAmount("Enter the amount for the withdrawal: ");
+        if(amount > account.getBalance()) {
+            System.out.println("Cannot withdraw more than balance.");
+            return;
         }
-        accountNumber = choiceInput;
 
-        System.out.println("Enter the amount you want to withdraw: ");
-        choiceInput = scanner.nextLine().trim();
-        try {
-            amount = Double.parseDouble(choiceInput);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Input");
-            System.out.println("Please Try Again.");
-            return;
-        }
-        if(amount <= 0){
-            System.out.println("Amount must be greater than 0.");
-            return;
-        }
-        if(amount > account.getBalance()){
-            System.out.println("Amount cannot be greater than balance.");
-            return;
-        }
 
         account.withdraw(amount);
 
+        recordTransaction(account.getAccountNumber(), amount, "WITHDRAW");
 
-
-        Transaction transaction = new Transaction(Integer.toString(nextTransactionNumber), amount, "WITHDRAW", LocalDate.now().toString(), accountNumber);
-        nextTransactionNumber++;
 
         if(account.getAccountType().equals("Current")){
-            System.out.printf("Fee is $%.2f"+ account.calculateCharges() +". Total deducted: $%.2f" + account.calculateCharges() + amount + "\n");
+            System.out.printf("Fee is $%.2f. Total deducted: $%.2f%n" + account.calculateCharges(), account.calculateCharges() + amount);
         }
 
         System.out.println("Balance updated: "+ account.getBalance());

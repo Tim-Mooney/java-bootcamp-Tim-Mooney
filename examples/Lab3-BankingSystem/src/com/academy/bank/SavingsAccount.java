@@ -5,9 +5,7 @@ public class SavingsAccount extends Account implements Printable{
     private double interestRate;
 
     public SavingsAccount(String accountNumber, double balance, Customer customer, double interestRate){
-        super(accountNumber);
-        super(balance);
-        super(customer);
+        super(accountNumber,balance,customer);
         this.interestRate = interestRate;
     }
 
@@ -26,7 +24,7 @@ public class SavingsAccount extends Account implements Printable{
         System.out.println("Savings Account");
         System.out.println("Account number: " + getAccountNumber());
         System.out.println("Customer: " + getCustomer().getName());
-        System.out.println("Balance: " + balance);
+        System.out.println("Balance: " + getBalance());
         System.out.println("Interest rate: " + interestRate);
         System.out.println("Interest: " + calculateInterest());
     }
