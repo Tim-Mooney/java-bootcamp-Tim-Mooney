@@ -27,7 +27,7 @@ public class CurrentAccount extends Account implements Printable{
 
     @Override
     public String getAccountType(){
-        return "Savings";
+        return "Current";
     }
 
     public void printDetails(){

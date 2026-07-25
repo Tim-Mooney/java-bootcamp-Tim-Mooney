@@ -1,6 +1,6 @@
 package com.academy.bank;
 
-public class Transaction(){
+public class Transaction {
 
     private String transactionId;
     private double amount;

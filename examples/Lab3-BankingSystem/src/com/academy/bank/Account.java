@@ -29,17 +29,17 @@ public abstract class Account{
     //------------SETTERS----------------
 
 
-//    public void setAccountNumber(String accountNumber) {
-//        this.accountNumber = accountNumber;
-//    }
-//
-//    protected void setBalance(double bal){      //i think i misinterpreted the instructions
-//        this.balance = bal;                      //uncomment if these are required
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    protected void setBalance(double bal){
+        this.balance = bal;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     //---------------------------------
 
