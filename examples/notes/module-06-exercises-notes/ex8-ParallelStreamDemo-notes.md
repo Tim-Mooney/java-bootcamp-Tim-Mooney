@@ -1,0 +1,1 @@
+a shared mutable counter is unsafe because it can be accessed by two threads at once and then the saved values may overwrite each other.
