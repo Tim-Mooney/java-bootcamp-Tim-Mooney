@@ -5,14 +5,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        EmployeeService employeeService = new EmployeeService(EmployeeData.createSampleEmployees());
+        EmployeeService employeeService =
+                new EmployeeService(EmployeeData.createSampleEmployees());
         ReportService reportService = new ReportService(employeeService);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             displayMenu();
             String choiceInput = scanner.nextLine().trim();
-
             if (choiceInput.isEmpty()) {
                 System.out.println("Invalid choice. Please try again.");
                 continue;
@@ -27,7 +27,6 @@ public class Main {
             }
 
             System.out.println("----------------------------------");
-
             switch (choice) {
                 case 1 -> employeeService.displayAllEmployees();
                 case 2 -> reportService.displayEmployeesByDepartment();
@@ -42,21 +41,10 @@ public class Main {
                     scanner.close();
                     return;
                 }
-                case 10 -> employeeService.demonstrateLambdas();
-                case 11 -> employeeService.demonstrateFunctionalInterfaces();
-                case 12 -> employeeService.demonstrateStreamSources();
-                case 13 -> employeeService.displayHighSalaryEmployees();
-                case 14 -> employeeService.displayFilteredItTopPerformers();
-                case 15 -> employeeService.demonstrateMapping();
-                case 16 -> employeeService.demonstrateSorting();
-                case 17 -> employeeService.displayDistinctDepartments();
-                case 18 -> employeeService.displayTopAndNextSalaries();
-                case 19 -> employeeService.displayCounts();
-                case 20 -> employeeService.demonstrateCollectors();
-                case 21 -> reportService.displayBonusInsights();
+                // Optional teaching extras (align with solution menu 10–20):
+                // lambdas, functional interfaces, sources, filters, map, sort, …
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-
             System.out.println();
         }
     }
@@ -74,18 +62,6 @@ public class Main {
         System.out.println("7 Active Employees");
         System.out.println("8 Dashboard");
         System.out.println("9 Exit");
-        System.out.println("10 Lambda Demo");
-        System.out.println("11 Functional Interface Demo");
-        System.out.println("12 Stream Sources Demo");
-        System.out.println("13 High Salary Filter (>80000)");
-        System.out.println("14 IT High Performers Filter");
-        System.out.println("15 Mapping Demo");
-        System.out.println("16 Sorting Demo");
-        System.out.println("17 Distinct Departments");
-        System.out.println("18 Top/Next 5 Salaries");
-        System.out.println("19 Employee Counts");
-        System.out.println("20 Collectors Demo");
-        System.out.println("21 Bonus Insights");
         System.out.print("Choice : ");
     }
 }

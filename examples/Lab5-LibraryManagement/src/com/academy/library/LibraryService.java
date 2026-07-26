@@ -231,11 +231,6 @@ public class LibraryService {
 
         System.out.println("Successfully borrowed a book!");
 
-
-        // : read bookId + memberId; validate book/member exist
-        // : reject if already borrowed; mark unavailable; put borrowRecords
-        // : add BorrowRecord to history; bump borrowFrequency; success message
-        //throw new UnsupportedOperationException("");
     }
 
     public void returnBook() {
@@ -246,7 +241,7 @@ public class LibraryService {
             return;
         }
         Book book = findBookById(bookId);
-        if(book.getAvailable() == true){
+        if(book.isAvailable()){
             System.out.println("Book is not currently borrowed.");
             return;
         }
@@ -255,13 +250,14 @@ public class LibraryService {
         book.setAvailable(true);
 
         for(int i = borrowRecords.size()-1; i > 0; i--){
-            if(borrowRecords.get(i).getBookId().equals(bookId) && borrowRecords.get(i).getReturnDate() == null){
-                borrowRecords.get(i).setReturnDate()
+            BorrowRecord record = borrowHistory.get(i);
+            if(record.getBookId().equals(bookId) && record.getReturnDate() == null){
+                record.setReturnDate(LocalDate.now());
+                System.out.println("Book returned.");
+                return;
             }
         }
-        // : read bookId; remove from borrowRecords; setAvailable(true)
-        // : set returnDate on latest open BorrowRecord
-        //throw new UnsupportedOperationException("");
+
     }
 
     public void displayBorrowedBooks() {
