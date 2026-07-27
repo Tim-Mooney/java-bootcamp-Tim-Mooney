@@ -1,0 +1,1 @@
+Never log sensitive data like passwords, tokens, etc. Nothing private (not the keyword just the english word) 

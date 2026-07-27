@@ -1,0 +1,1 @@
+If the file doesn't exist, it goes straight to the catch block when it tries to read from nothing.

@@ -1,0 +1,1 @@
+The exception will climb the stack until it is handled. So main calls menu, which calls service, which calls account where the exception is thrown. Then the exception is thrown up the stack to main where it is caught again.
