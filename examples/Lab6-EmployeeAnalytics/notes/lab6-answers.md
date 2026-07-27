@@ -216,3 +216,47 @@ Thank You
 
 Intermediate operations are lazy. They don't do anything until they are triggered
 by a Terminal operation.
+
+**What are the advantages of Streams over loops?**
+
+Less boilerplate code. Easy to make and efficient.
+
+**When should Streams be preferred?**
+
+When processing collections and wanting to transform data.
+
+**What is the difference between filter() and map()?**
+
+filter keeps the elements that pass the filter, map transforms the elements into something else for later.
+
+**Why is reduce() useful?**
+
+Reduces the stream to one value.
+
+**What does Collectors.groupingBy() do?**
+
+Groups elements into different categories or groups.
+
+**What is the benefit of using Optional?**
+
+Optional is an object that may or may not exist. It makes it so you can easily handle both cases instead of finding out later that the object is null.
+
+**Why are Lambda Expressions more readable?**
+
+They are small and concise. If you know Lambda expressions, you can quickly see what is happening.
+
+**When should method references be used?**
+
+When you are calling a method. Replaces very simple lambdas
+
+**Which stream operation is terminal? Give three examples from your lab.**
+
+collect(), forEach(), reduce()
+
+**How do Streams improve enterprise Java applications?**
+
+Parallelism and readability.
+
+(Forward look) How would a future CRM use filter / map / groupingBy on customers the same way this lab uses them on employees—without claiming the CRM is implemented today?
+
+The operations translate. a future CRM still needs to filter customers, map them in some way, and group them.
