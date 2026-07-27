@@ -158,3 +158,34 @@ TreeMap<String, Integer> categoryBookCount - Again, needs to be in order for cat
 ArrayList<BorrowRecord> borrowHistory - Only added to and never deleted from. Maintains insertion order because its only ever .add()ed to. Quick access by index when it is needed. 
 
 HashMap<String, Integer> borrowFrequency - Doesn't need to be sorted. Stores bookIds (key) and how many times they are borrowed (value).
+
+
+**When choose List over Set?**
+
+Set if you need unique, List if you need insertion order, index access, and are ok with duplicates.
+
+**Why HashSet before inserting a book ID?**
+
+HashSet is fast for .contains and that is what needs to be checked before adding a new book ID.
+
+**Why a Map for “currently borrowed” vs only a boolean?**
+
+A map with keys and values is better than a boolean because it applies to individual books.
+
+**HashMap vs TreeMap in this lab?**
+
+TreeMap is sorted which is needed for some maps. Hashmap is not sorted.
+
+**Comparable vs Comparator for books?**
+
+Comparable says something can be compared, comparator is a way to compare the books.
+
+**Which iteration style would you use most in production—and why?**
+
+Probably streams and enhanced for loops. Streams are lazy and efficient and enhanced for loops are easy to read and implement.
+
+**CRM: which collection for customer list / unique emails / id→customer lookup?**
+
+customer list - List
+unique emails - Set
+id→customer - Map
