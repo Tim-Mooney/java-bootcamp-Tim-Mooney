@@ -167,3 +167,49 @@ Leak is adding employees to a private static final list, so the list will never 
 The garbage collector will think that they are still ineligible.
 Fix adds to a local arraylist and then clears the arraylist's references to the object, then removes the reference to the list itself.
 Now, the garbage collector can see that all of those objects are unreachable and should collect them.
+
+
+**Stack vs Heap?**
+
+Stack - method call frames, local variables, etc.
+Heap - objects, managed by the GC
+
+**Why locals on the Stack?**
+
+Locals are tied to a method call, so when the method call frame is popped, the local variables don't need to exist.
+
+**Why objects on the Heap?**
+
+Objects can outlive their methods, so they need to stay around after the method call frame is popped.
+
+**When is an object GC-eligible?**
+
+When it is no longer reachable.
+
+**Does System.gc() guarantee collection?**
+
+No, it is a suggestion.
+
+**What caused the leak?**
+
+The list was static, and never unreachable. It got a bunch of objects and stayed reachable so GC never cleared it.
+
+**How did clearing the list fix it?**
+
+Removes the references to the objects, allowing the GC to target them.
+
+**Why are WeakReferences useful?**
+
+Lets you keep a reference to something until GC absolutely must collect it.
+
+**What happens when the heap is exhausted?**
+
+OOM error. 
+
+**Which laptop tool would you try first for rising heap—and why?**
+
+VisualVM or jhat. They are memory debuggers.
+
+**How could a CRM unbounded cache repeat this leak?**
+
+The cache is stored by another static data structure and never cleared.

@@ -1,0 +1,38 @@
+2026-07-27 14:37:06 INFO Login successful for account 1001
+2026-07-27 14:38:24 INFO Withdraw completed successfully | Execution Time: 4794 ms
+2026-07-27 14:38:43 ERROR Requested 20000.0 Balance 9000.0
+InsufficientFundsException Transaction Failed. Insufficient Account Balance.
+[com.academy.atm.Account.withdraw(Account.java:50), com.academy.atm.ATMService.lambda$withdraw$1(ATMService.java:88), com.academy.atm.ATMService.executeTransaction(ATMService.java:187), com.academy.atm.ATMService.withdraw(ATMService.java:85), com.academy.atm.Main.main(Main.java:34)]
+2026-07-27 14:39:23 INFO Login successful for account 1001
+2026-07-27 14:39:28 ERROR Requested 20000.0 Balance 11000.0
+InsufficientFundsException Transaction Failed. Insufficient Account Balance.
+[com.academy.atm.Account.withdraw(Account.java:50), com.academy.atm.ATMService.lambda$withdraw$1(ATMService.java:88), com.academy.atm.ATMService.executeTransaction(ATMService.java:187), com.academy.atm.ATMService.withdraw(ATMService.java:85), com.academy.atm.Main.main(Main.java:34)]
+2026-07-27 14:39:55 ERROR Amount must be greater than zero.
+InvalidAmountException Amount must be greater than zero.
+[com.academy.atm.Account.deposit(Account.java:39), com.academy.atm.ATMService.lambda$deposit$0(ATMService.java:77), com.academy.atm.ATMService.executeTransaction(ATMService.java:187), com.academy.atm.ATMService.deposit(ATMService.java:74), com.academy.atm.Main.main(Main.java:33)]
+2026-07-27 14:40:00 INFO Deposit completed successfully | Execution Time: 1510 ms
+2026-07-27 14:40:14 ERROR Invalid numeric input during Deposit
+InputMismatchException Invalid numeric input.
+[com.academy.atm.ATMService.readAmount(ATMService.java:256), com.academy.atm.ATMService.lambda$deposit$0(ATMService.java:76), com.academy.atm.ATMService.executeTransaction(ATMService.java:187), com.academy.atm.ATMService.deposit(ATMService.java:74), com.academy.atm.Main.main(Main.java:33)]
+2026-07-27 14:40:40 INFO Mini Statement completed successfully | Execution Time: 8 ms
+2026-07-27 14:41:31 ERROR Invalid PIN entered.
+InvalidPinException Invalid PIN entered.
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:41:40 ERROR Invalid PIN entered.
+InvalidPinException Invalid PIN entered.
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:45:43 ERROR Invalid PIN entered.
+InvalidPinException Invalid PIN entered.
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:49:14 ERROR Invalid PIN entered. Attempts remaining: 2
+InvalidPinException Invalid PIN entered. Attempts remaining: 2
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:49:22 ERROR Invalid PIN entered. Attempts remaining: 1
+InvalidPinException Invalid PIN entered. Attempts remaining: 1
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:49:31 ERROR Invalid PIN entered. Attempts remaining: 0
+InvalidPinException Invalid PIN entered. Attempts remaining: 0
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-27 14:54:09 ERROR Account not found: 9999
+AccountNotFoundException Account not found: 9999
+[com.academy.atm.ATMService.findAccount(ATMService.java:239), com.academy.atm.ATMService.login(ATMService.java:47), com.academy.atm.Main.main(Main.java:32)]
