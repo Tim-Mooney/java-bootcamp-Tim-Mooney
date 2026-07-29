@@ -29,7 +29,7 @@ customer-management-platform/
 
 | File | Destination         |
 | ---- |---------------------|
-| `Customer.java` | /src/main/java      |
+| `../module-10-exercises/CustomerWeak.java` | /src/main/java      |
 | `CustomerServiceTest.java` | /src/test/java      |
 | `application.properties` | /srs/main/resources |
 | `sample-customers.json` used only by tests | /src/test/resources |

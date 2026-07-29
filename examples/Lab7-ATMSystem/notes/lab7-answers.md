@@ -281,15 +281,49 @@ The pattern of having a class like Account throwing domain exceptions and having
 
 **What is the difference between checked and unchecked exceptions?**
 
-
+Checked exceptions are exceptions that the compiler forces you to handle, either by catching them or declaring them in the method signature. 
+Unchecked exceptions, on the other hand, are not checked at compile time and typically represent programming errors (like NullPointerException) that should be fixed in the code rather than handled.
 
 **Why should custom exceptions be used?**
+
+Allows for more specific error handling and better communication of what went wrong. 
+Custom exceptions can carry additional information and context about the error, making it easier to debug and maintain the code.
+
 **What is exception propagation?**
+
+When and exception is thrown and not caught in the same method, it propagates up the call stack to the calling method.
+If it is not caught there, it continues to propagate up until it is caught or reaches the top level of the application.
+
 **What is the purpose of finally?**
+
+Finally contains code that is guaranteed to run regardless of whether an exception was thrown or caught.
+
 **Why is try-with-resources preferred?**
+
+It automatically closes resources that implement the AutoCloseable interface, reducing the risk of resource leaks and making the code cleaner and easier to read.
+
 **When should throw be used?**
+
+throw is used to explicitly throw an exception
+
 **When should throws be used?**
+
+throws is used in a method signature to declare that the method might throw a specific type of exception.
+
 **Why is logging important in enterprise applications?**
+
+logging is important for diagnosing issues, monitoring application behavior, and providing insights into the application's performance and usage. 
+It helps developers understand what happened in the application, especially when errors occur.
+
 **What happens if an exception is not handled?**
+
+If an exception is not handled, it can propagate up the call stack. 
+If it reaches the top level without being caught, the program will terminate.
+
 **How does proper exception handling improve software reliability?**
+
+Proper exception handling improves software reliability by ensuring that errors are caught and handled gracefully, preventing the application from crashing and providing useful feedback to users or developers.
+
 **(Forward look) How would a future CRM map domain exceptions (not found / validation) to API errors using the same boundary-catch + log pattern—without claiming CRM is implemented today?**
+
+A future CRM could map domain exceptions to API errors by using a similar pattern of catching exceptions at the boundary of the application (e.g., in a controller or service layer) and then logging the exception details while returning a user-friendly error response to the API consumer.

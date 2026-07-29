@@ -1,3 +1,4 @@
+com/northstar/crm/Main.class
 com/northstar/crm/exception/CustomerNotFoundException.class
 com/northstar/crm/entity/Customer.class
 com/northstar/crm/controller/CustomerController.class
