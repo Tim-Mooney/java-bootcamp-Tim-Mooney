@@ -1,0 +1,38 @@
+# Lab 15 — Interface and Constructor Sketch
+
+## Step 1 — Interface
+
+Methods: findById, activate(customerId).
+```azure
+public interface CustomerService {
+    Customer findById(String customerId);
+    void activate(String customerId);
+}
+```
+
+## Step 2 — Constructor
+
+Deps: CustomerRepository, optional CustomerNotifier — JDK-style ctor injection sketch.
+```
+public class CustomerServiceImpl implements CustomerService {
+    private final CustomerRepository repo;
+    private final Optional<CustomerNotifier> notifier;
+
+    public CustomerService(CustomerRepository repo, Optional<CustomerNotifier> notifier) {
+        this.repo = repo;
+        this.notifier = notifier;
+    }
+}
+
+```
+
+## Step 3 — No framework magic
+
+Note: prefer explicit ctor over field injection in standards.
+
+## Step 4 — Prep boundary
+
+Write: *Prepare for Lab 15; do not complete full service implementation now.*
+
+## Scope
+Pre-lab only — do not finish the full graded lab in this exercise.
