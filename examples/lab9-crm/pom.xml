@@ -15,7 +15,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <!-- TODO: confirm junit.version / spring.version -->
         <junit.version>5.11.4</junit.version>
         <spring.version>6.2.3</spring.version>
     </properties>
@@ -58,7 +57,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <!-- TODO: confirm Main-Class -->
                             <mainClass>com.northstar.crm.Main</mainClass>
                         </manifest>
                     </archive>
