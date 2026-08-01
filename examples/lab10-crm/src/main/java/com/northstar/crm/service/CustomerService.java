@@ -22,6 +22,20 @@ public class CustomerService {
         return customer;
     }
 
+    public void deleteCustomer(String customerId){
+        if(findByCustomerId(customerId).isEmpty){
+            System.out.println("Customer did not exist");
+            return;
+        }
+        for(int i = 0; i < customers.size(); i++){
+            if(customers.get(i).getCustomerId().equals(customerId)){
+                customers.remove(i);
+                System.out.println("Removed cutomer "+ customerId);
+                return;
+            }
+        }
+    }
+
     public Optional<Customer> findByCustomerId(String customerId) {
         return customers.stream()
                 .filter(c -> c.getCustomerId().equals(customerId))

@@ -72,6 +72,11 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+//    public Customer save() {
+//        this.createdAt = LocalDateTime.now();
+//        return this;
+//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
