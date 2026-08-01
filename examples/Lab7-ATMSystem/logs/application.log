@@ -36,3 +36,34 @@ InvalidPinException Invalid PIN entered. Attempts remaining: 0
 2026-07-27 14:54:09 ERROR Account not found: 9999
 AccountNotFoundException Account not found: 9999
 [com.academy.atm.ATMService.findAccount(ATMService.java:239), com.academy.atm.ATMService.login(ATMService.java:47), com.academy.atm.Main.main(Main.java:32)]
+2026-07-31 10:18:29 INFO Login successful for account 1001
+2026-07-31 10:18:35 INFO Deposit completed successfully | Execution Time: 2058 ms
+2026-07-31 10:21:29 INFO Transfer completed successfully | Execution Time: 5103 ms
+2026-07-31 10:21:40 INFO Mini Statement completed successfully | Execution Time: 11 ms
+2026-07-31 10:43:02 ERROR Please login before performing this operation.
+InvalidPinException Please login before performing this operation.
+[com.academy.atm.ATMService.requireLogin(ATMService.java:249), com.academy.atm.ATMService.lambda$withdraw$1(ATMService.java:86), com.academy.atm.ATMService.executeTransaction(ATMService.java:190), com.academy.atm.ATMService.withdraw(ATMService.java:85), com.academy.atm.Main.main(Main.java:34)]
+2026-07-31 10:43:10 INFO Login successful for account 1001
+2026-07-31 10:43:17 ERROR Unexpected error during Withdraw
+InsufficientFundsException Transaction Failed. Insufficient Account Balance.
+[com.academy.atm.Account.withdraw(Account.java:50), com.academy.atm.ATMService.lambda$withdraw$1(ATMService.java:88), com.academy.atm.ATMService.executeTransaction(ATMService.java:190), com.academy.atm.ATMService.withdraw(ATMService.java:85), com.academy.atm.Main.main(Main.java:34)]
+2026-07-31 10:46:03 INFO Login successful for account 1001
+2026-07-31 10:46:13 ERROR Unable to read transaction history
+FileNotFoundException transactions.txt (No such file or directory)
+[java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:213), java.base/java.io.FileInputStream.<init>(FileInputStream.java:152), java.base/java.io.FileInputStream.<init>(FileInputStream.java:106), java.base/java.io.FileReader.<init>(FileReader.java:60), com.academy.atm.ATMService.loadTransactionsFromFile(ATMService.java:228), com.academy.atm.ATMService.lambda$displayMiniStatement$5(ATMService.java:143), com.academy.atm.ATMService.executeTransaction(ATMService.java:190), com.academy.atm.ATMService.displayMiniStatement(ATMService.java:134), com.academy.atm.Main.main(Main.java:37)]
+2026-07-31 10:46:13 INFO Mini Statement completed successfully | Execution Time: 4 ms
+2026-07-31 10:48:03 ERROR Invalid PIN entered. Attempts remaining: 2
+InvalidPinException Invalid PIN entered. Attempts remaining: 2
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-31 10:48:11 ERROR Invalid PIN entered. Attempts remaining: 1
+InvalidPinException Invalid PIN entered. Attempts remaining: 1
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-31 10:48:13 INFO Invalid menu selection: 1001
+2026-07-31 10:48:23 ERROR Invalid PIN entered. Attempts remaining: 0
+InvalidPinException Invalid PIN entered. Attempts remaining: 0
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-31 10:49:30 ERROR Invalid PIN entered. Attempts remaining: 2
+InvalidPinException Invalid PIN entered. Attempts remaining: 2
+[com.academy.atm.ATMService.login(ATMService.java:53), com.academy.atm.Main.main(Main.java:32)]
+2026-07-31 10:50:08 INFO Login successful for account 1001
+2026-07-31 10:50:11 INFO Deposit completed successfully | Execution Time: 1271 ms

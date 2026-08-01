@@ -93,6 +93,13 @@ public class ATMService {
     }
 
     public void displayBalance() {
+        executeTransaction("Balance Inquiry", () -> {
+            requireLogin();
+            loggedInAccount.displayBalance();
+        });
+    }
+
+    public void transferFunds() {
         executeTransaction("Transfer", () -> {
             requireLogin();
             System.out.print("Destination Account Number : ");
@@ -121,10 +128,6 @@ public class ATMService {
                 throw ex; // let executeTransaction log + message
             }
         });
-    }
-
-    public void transferFunds() {
-        System.out.println("Bonus / full-path feature — implement after core TODOs.");
     }
 
     public void displayMiniStatement() {
