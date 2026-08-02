@@ -1,60 +1,43 @@
-# Lab 13 starter — timed path (~45 minutes)
+# Lab 13 — CRM with Address Handling
 
-**Theme:** Contract-first SOAP (XSD + WSDL + samples) — no Java server
+CRM service with customer address support. **Note: address is non-live** (for development/testing only).
 
-## Copy into your workspace
+## How to Run
 
-**Windows (PowerShell)** — from this lab folder:
-
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\java-bootcamp\examples\lab13-crm" | Out-Null
-Copy-Item -Recurse -Force ".\starter\*" "$env:USERPROFILE\java-bootcamp\examples\lab13-crm\"
-cd $env:USERPROFILE\java-bootcamp\examples\lab13-crm
-```
-
-**macOS / Linux:**
-
+Compile and run tests:
 ```bash
-mkdir -p ~/java-bootcamp/examples/lab13-crm
-cp -R starter/. ~/java-bootcamp/examples/lab13-crm/
-cd ~/java-bootcamp/examples/lab13-crm
+cd examples/lab13-crm
+mvn clean test
 ```
 
-Full GUIDE: [`../LAB-13-GUIDE.md`](../LAB-13-GUIDE.md)
-
-## 45-minute checklist
-
-- [ ] Complete `contracts/customer.xsd` TODOs (types + request/response elements)
-- [ ] Complete `contracts/CustomerService.wsdl` (3 ops, document/literal, placeholder address)
-- [ ] Fill success + fault samples under `samples/`
-- [ ] Finish operation-matrix + soap-design-notes TODOs
-- [ ] Smoke-validate well-formed XML
-
-## Smoke test
-
-**Windows PowerShell:**
-
-```powershell
-Get-ChildItem contracts,samples -Filter *.xml | ForEach-Object { [xml](Get-Content -Raw $_.FullName) | Out-Null; "OK $($_.Name)" }
-Get-ChildItem contracts -Filter *.xsd | ForEach-Object { [xml](Get-Content -Raw $_.FullName) | Out-Null; "OK $($_.Name)" }
-Get-ChildItem contracts -Filter *.wsdl | ForEach-Object { [xml](Get-Content -Raw $_.FullName) | Out-Null; "OK $($_.Name)" }
-```
-
-**macOS / Linux** (if `xmllint` available):
-
+Run the application:
 ```bash
-xmllint --noout contracts/* samples/*
+mvn -DskipTests compile exec:java -Dexec.mainClass="com.northstar.crm.Main"
 ```
 
-Do **not** start a server on port 8080.
+Or package and run:
+```bash
+mvn clean package
+java -jar target/customer-service.jar
+```
 
-## Timed-path Pass criteria
+## Cleanup
 
-| Criterion | Pass / Fail |
-| --------- | ----------- |
-| XSD + WSDL well-formed; schemaLocation beside WSDL | Pass / Fail |
-| Three operations + success/fault samples | Pass / Fail |
-| Docs name CUS-1001 / CUS-1002 / lab-request-001 | Pass / Fail |
-| Placeholder URL documented as not live | Pass / Fail |
+Remove build artifacts:
+```bash
+mvn clean
+```
 
-Continue remaining GUIDE steps as homework / full path if needed.
+This deletes the `target/` directory and all compiled classes.
+
+| # | Confirm | Your notes     |
+| - | ------- |----------------|
+| 1 | Namespace URI published | Pass           |
+| 2 | WSDL location placeholder documented | Pass           |
+| 3 | Three operations named and described | Pass           |
+| 4 | Sample success envelopes for CUS-1001 / CUS-1002 | Pass           |
+| 5 | Fault examples for not-found and validation | Pass           |
+| 6 | Correlation ID convention (`lab-request-001` style) | Pass           |
+| 7 | Explicit note: implementation arrives in Lab 24 | Pass           |
+| 8 | Optional: screenshot of VS Code XSD/WSDL outline | IM ON INTELLIJ |
+
