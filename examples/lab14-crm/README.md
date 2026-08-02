@@ -1,49 +1,70 @@
-# Lab 14 starter — timed path (~45 minutes)
+# Lab 14 — CRM with DTOs & Validation
 
-**Theme:** DTOs + Jakarta Bean Validation at the API boundary
+CRM service with request/response DTOs and Jakarta Validation constraints.
 
-## Copy into your workspace
-
-**Windows (PowerShell)** — from this lab folder:
-
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\java-bootcamp\examples\lab14-crm" | Out-Null
-Copy-Item -Recurse -Force ".\starter\*" "$env:USERPROFILE\java-bootcamp\examples\lab14-crm\"
-cd $env:USERPROFILE\java-bootcamp\examples\lab14-crm
-```
-
-**macOS / Linux:**
+## How to Run Main
 
 ```bash
-mkdir -p ~/java-bootcamp/examples/lab14-crm
-cp -R starter/. ~/java-bootcamp/examples/lab14-crm/
-cd ~/java-bootcamp/examples/lab14-crm
+cd examples/lab14-crm
+mvn -q org.codehaus.mojo:exec-maven-plugin:3.5.0:java -Dexec.mainClass=com.northstar.crm.Main
 ```
 
-Full GUIDE: [`../LAB-14-GUIDE.md`](../LAB-14-GUIDE.md)
+Or compile and run:
+```bash
+mvn clean compile exec:java -Dexec.mainClass="com.northstar.crm.Main"
+```
 
-## 45-minute checklist
+## Validation Rules
 
-- [ ] Add Bean Validation annotations on `CustomerRequestDTO`
-- [ ] Implement `CustomerMapper` + `CustomerApiFacade` TODOs
-- [ ] Complete validation tests (valid / bad email / blank name)
-- [ ] Main demo returns response DTOs only; invalid path shows `lab-request-001`
-- [ ] Fill `docs/dto-boundary-notes.md`
-- [ ] Run smoke test
+CustomerRequestDTO enforces:
+- **customerId**: Required, max 32 characters
+- **fullName**: Required, 2-100 characters
+- **email**: Required, valid email format, max 254 characters
+- **status**: Required, 1-32 characters
 
-## Smoke test
+## Sample Request
+
+```json
+{
+  "customerId": "CUS-1001",
+  "fullName": "Amina Khan",
+  "email": "amina.khan@example.com",
+  "status": "ACTIVE"
+}
+```
+
+## How to Run Tests
 
 ```bash
-mvn -B clean test
+mvn clean test
 ```
 
-## Timed-path Pass criteria
+## Build & Package
 
-| Criterion | Pass / Fail |
-| --------- | ----------- |
-| Validation tests green | Pass / Fail |
-| Facade returns DTOs only (no entity leak) | Pass / Fail |
-| Invalid payload rejected before service | Pass / Fail |
-| Correlation id visible on failure | Pass / Fail |
+```bash
+mvn clean package
+java -jar target/customer-service.jar
+```
 
-Continue remaining GUIDE steps as homework / full path if needed.
+## Cleanup
+
+Remove build artifacts:
+```bash
+mvn clean
+```
+
+This deletes the `target/` directory and all compiled classes.
+
+## Validation rules (CustomerRequestDTO)
+
+| Field | Constraints |
+| ----- | ----------- |
+| customerId | @NotBlank, @Size(max=32) |
+| fullName | @NotBlank, @Size(2..100) |
+| email | @NotBlank, @Email, @Size(max=254) |
+| status | @NotBlank (ACTIVE\|PROSPECT\|SUSPENDED\|CLOSED) |
+
+## Sample invalid (email)
+
+email=not-an-email → IllegalArgumentException with field message
+correlationId=lab-request-001

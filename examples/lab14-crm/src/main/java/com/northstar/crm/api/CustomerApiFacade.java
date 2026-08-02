@@ -4,12 +4,10 @@ import com.northstar.crm.dto.CustomerRequestDTO;
 import com.northstar.crm.dto.CustomerResponseDTO;
 import com.northstar.crm.mapper.CustomerMapper;
 import com.northstar.crm.service.CustomerService;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+import jakarta.validation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
-    import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 public class CustomerApiFacade {
     private static final Logger log = Logger.getLogger(CustomerApiFacade.class.getName());
@@ -55,5 +53,11 @@ public class CustomerApiFacade {
 
             throw new IllegalArgumentException("[" + correlationId + "] " + msg);
         }
+    }
+    public CustomerResponseDTO getById(String customerId, String correlationId) {
+        var entity = service.findByCustomerId(customerId)  // or findById — match your API
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "customer not found [" + correlationId + "]: " + customerId));
+        return CustomerMapper.toResponse(entity);
     }
 }

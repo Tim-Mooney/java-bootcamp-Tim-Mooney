@@ -33,7 +33,7 @@ public final class CustomerMapper {
                 //((entity.getCreatedAt()).atZone(ZoneId.systemDefault())).toInstant(),   //im EST
                 entity.getCreatedAt()
                 //LocalDateTime.now()
-                //Instant.now()   //do i need to add something to pom or smthn who knows IMPORTS  JAVA.TIME IMPORTS LOOK AT THEM
+                //Instant.now()
         );
     }
 }

@@ -13,16 +13,33 @@ public class Main {
                 "CUS-1001", "Amina Khan", "amina.khan@example.com", "ACTIVE");
         CustomerResponseDTO created1001 = api.create(cus1001, CORRELATION_ID);
         printResponse("Created", created1001);
+        CustomerRequestDTO cus10012 = new CustomerRequestDTO(
+                "CUS-1001", "Amina Khan", "amina.khan@example.com", "ACTIVE");
+        try {
+            CustomerResponseDTO created10012 = api.create(cus10012, CORRELATION_ID);
+            printResponse("Created", created10012);
+        } catch (IllegalStateException e) {
+            boolean hasCorrelationId = e.getMessage().contains(CORRELATION_ID);
+            System.out.println("Validation failure: " + e.getMessage());
+            System.out.println("Contains correlation id [" + CORRELATION_ID + "]: " + hasCorrelationId);
+        }
 
         CustomerRequestDTO cus1002 = new CustomerRequestDTO(
                 "CUS-1002", "Ravi Singh", "ravi.singh@example.com", "PROSPECT");
         CustomerResponseDTO created1002 = api.create(cus1002, CORRELATION_ID);
         printResponse("Created", created1002);
 
+        CustomerRequestDTO badEmail = new CustomerRequestDTO(
+                "CUS-1003", "Ravi Singh", "nffes", "PROSPECT");
+        try {
+            CustomerResponseDTO created1003 = api.create(badEmail, CORRELATION_ID);
+            printResponse("Created", created1003); // won't reach here — email is invalid
+        } catch (IllegalArgumentException e) {
+            boolean hasCorrelationId = e.getMessage().contains(CORRELATION_ID);
+            System.out.println("Validation failure: " + e.getMessage());
+            System.out.println("Contains correlation id [" + CORRELATION_ID + "]: " + hasCorrelationId);
+        }
 
-        // TODO: create CUS-1001 / CUS-1002 via DTOs; print CustomerResponseDTO only
-        // TODO: attempt invalid email; show correlation lab-request-001 in failure
-        //throw new UnsupportedOperationException("TODO: DTO facade demo");
     }
 
     private static void printResponse(String label, CustomerResponseDTO dto) {
