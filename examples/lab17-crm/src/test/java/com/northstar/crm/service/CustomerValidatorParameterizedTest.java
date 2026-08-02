@@ -2,6 +2,7 @@ package com.northstar.crm.service;
 
 import com.northstar.crm.entity.CustomerStatus;
 import com.northstar.crm.repository.InMemoryCustomerRepository;
+import com.northstar.crm.exception.BusinessException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,21 +12,33 @@ class CustomerValidatorParameterizedTest {
 
     @ParameterizedTest
     @CsvSource({
-            // TODO: legal rows e.g. PROSPECT,ACTIVE
-            "PROSPECT,ACTIVE"
+            "PROSPECT,ACTIVE",
+            "PROSPECT,CLOSED",
+            "ACTIVE,SUSPENDED",
+            "ACTIVE,CLOSED",
+            "SUSPENDED,ACTIVE"
     })
     void legalTransitions(CustomerStatus from, CustomerStatus to) {
-        // TODO: assertDoesNotThrow validateTransition(from, to, "lab-request-001")
-        throw new UnsupportedOperationException("TODO: legal parameterized");
+        assertDoesNotThrow(() ->
+                validator.validateTransition(from, to, "lab-request-001"));
     }
 
     @ParameterizedTest
     @CsvSource({
             // TODO: illegal rows e.g. ACTIVE,PROSPECT and CLOSED,ACTIVE
-            "ACTIVE,PROSPECT"
+            "ACTIVE,PROSPECT",
+            "ACTIVE,ACTIVE",
+            "PROSPECT,PROSPECT",
+            "SUSPENDED,SUSPENDED",
+            "CLOSED,ACTIVE",
+            "CLOSED,PROSPECT",
+            "CLOSED,CLOSED"
     })
     void illegalTransitions(CustomerStatus from, CustomerStatus to) {
-        // TODO: assertThrows BusinessException
-        throw new UnsupportedOperationException("TODO: illegal parameterized");
+        BusinessException ex = assertThrows(BusinessException.class,
+                () -> validator.validateTransition(from, to, "lab-request-002"));
+
+        assertEquals("BUSINESS_CONFLICT", ex.getCode());
+        assertEquals(409, ex.getStatusHint());
     }
 }
