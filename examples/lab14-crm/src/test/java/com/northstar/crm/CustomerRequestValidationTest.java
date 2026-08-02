@@ -19,6 +19,7 @@ class CustomerRequestValidationTest {
 
     @Test
     void validAminaRequestPasses() {
+
         // TODO: build valid DTO for CUS-1001; assert violations empty
         throw new UnsupportedOperationException("TODO: valid request");
     }

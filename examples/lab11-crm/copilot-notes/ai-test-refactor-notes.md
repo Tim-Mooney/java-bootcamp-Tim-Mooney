@@ -1,12 +1,9 @@
 # AI test/refactor notes — Lab 11
 
 ## lab11-001 — generated exploratory test
-- Accepted / rejected trivial assertion? 
-- Notes:
-
-## lab11-002 — CustomerServiceTest
-- Notes: 
--prompt: add one more test to CustomerServiceTest.java
+- Accepted, no trivial assertions.
+- Notes: This really isn't bad. It tests findByStatus. I think I passed in the current CustomerServiceTest.java on accident so it had some better context.
+- prompt: add one more test to CustomerServiceTest.java
 ```azure
 @Test
     void findByStatusReturnsMatchingCustomers() {
@@ -26,33 +23,12 @@
     }
 ```
 
-This really isn't bad. It tests findByStatus. I think I passed in the current CustomerServiceTest.java so it had some better context.
-
-## lab11-003 — CustomerNotifier extract + Mockito
-- Notes:
-
-| Method                         |Covered|Notes|
-|--------------------------------|-------|-----|
-| equals(Object o)               | | |
-| hashCode()                     | | |
-| toString()                     | | |
-| addCustomer(Customer customer) | | |
-|findByCustomerId(String customerId)| | |
-|findByStatus(CustomerStatus status)| | |
-|updateCustomerStatus(String customerId, CustomerStatus newStatus)| | |
-|listAll()| | |
-|validateCustomerId(String customerId)| | |
-|findByIdOrThrow(String customerId, String errorMessage)| | |
-
-
-
-## lab11-004 — coverage gaps / acceptance guidelines
-- Notes:
-
-##lab11-006 - 
-- Notes: prompt :Review CustomerService for code smells: duplicated logic, long methods,
+## lab11-002 — CustomerServiceTest
+- Notes: If the helper exists, might as well use it. This looks good to me.
+- prompt: Review CustomerService for code smells: duplicated logic, long methods,
   unclear names. Suggest one specific refactor.
-replaced
+
+  replaced
 ```azure
 validateCustomerId(customerId);
         Customer customer = findByCustomerId(customerId)
@@ -62,3 +38,33 @@ with
 ```azure
 Customer customer = findByIdOrThrow(customerId, "No such customer: " + customerId);
 ```
+
+
+## lab11-003 — CustomerNotifier extract + Mockito
+- Notes:
+
+| Method                         | Covered | Notes                                                                                        |
+|--------------------------------|---------|----------------------------------------------------------------------------------------------|
+| equals(Object o)               | no      | Could just make 2 Customers with the same ID and assertEquals but its really basic. No need. |
+| hashCode()                     | no      | It uses .hash() so its basically like testing a setter or getter. No real need.              |
+| toString()                     | no      | Again, toString doesn't have edge cases or anything. Its fine.                               |
+| addCustomer(Customer customer) | yes     | addCustomerStoresNewCustomer, addCustomerRejectsDuplicateId                                  |
+|findByCustomerId(String customerId)| yes     | addCustomerStoresNewCustomer, updateStatusChangesCustomerStatus                              |
+|findByStatus(CustomerStatus status)| yes     | findByStatusReturnsMatchingCustomers                                                         |
+|updateCustomerStatus(String customerId, CustomerStatus newStatus)| partial | updateStatusChangesCustomerStatus, CustomerNotifierMockTest. Not tested thoroughly (no ID)   |
+|listAll()| yes     | addCustomerStoresNewCustomer                                                                 |
+|validateCustomerId(String customerId)| partial | addCustomer, updateStatus use this but its not called in the tests                           |
+|findByIdOrThrow(String customerId, String errorMessage)| partial | Never entered the throw path.                                                                |
+
+
+
+## lab11-004 — coverage gaps / acceptance guidelines
+Acceptance guidelines for AI-generated tests and refactors:
+1. Every assertion must be able to fail — if I can't describe an input that
+   breaks it, it isn't a real test.
+2. Every refactor must be backed by a passing test suite run before and after.
+3. No accepted suggestion may introduce a dependency not already in pom.xml.
+4. I can explain, without re-reading Copilot's explanation, why the code
+   is correct.
+5. Coverage gaps are documented, not silently ignored.
+
