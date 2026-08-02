@@ -15,9 +15,40 @@ public class Main {
         CustomerValidator validator = new CustomerValidator(repo);
         CustomerService service = new DefaultCustomerService(repo, validator);
 
-        // TODO: addCustomer Amina (ACTIVE) and Ravi (PROSPECT)
-        // TODO: changeStatus CUS-1002 → ACTIVE with correlation lab-request-001
-        // TODO: catch illegal ACTIVE → PROSPECT on CUS-1001; print message; prove still ACTIVE
-        throw new UnsupportedOperationException("TODO: service-layer demo (activate + illegal transition)");
+        Customer amina = Customer.amina();
+        Customer ravi = Customer.ravi();
+
+        service.addCustomer(amina); // ACTIVE
+        service.addCustomer(ravi);  // PROSPECT
+
+        Customer activated = service.changeStatus(
+                "CUS-1002", CustomerStatus.ACTIVE, "lab-request-001");
+        System.out.printf("activated %s status=%s%n",
+                activated.getCustomerId(), activated.getStatus());
+
+        try {
+            service.changeStatus("CUS-1001", CustomerStatus.PROSPECT, "lab-request-001");
+        } catch (IllegalStateException ex) {
+            System.out.println("expected failure: " + ex.getMessage());
+        }
+        System.out.println("CUS-1001 still: " + service.findById("CUS-1001").orElseThrow().getStatus());
+        try {
+            service.changeStatus("CUS-1002", CustomerStatus.ACTIVE, "lab-request-001");
+        } catch (IllegalStateException ex) {
+            System.out.println("expected failure: " + ex.getMessage());
+        }
+        System.out.println("CUS-1002 still: " + service.findById("CUS-1002").orElseThrow().getStatus());
+
+        Customer closed = service.changeStatus(
+                "CUS-1002", CustomerStatus.CLOSED, "lab-request-001");
+        System.out.printf("closed %s status=%s%n",
+                closed.getCustomerId(), closed.getStatus());
+        try {
+            service.changeStatus("CUS-1002", CustomerStatus.ACTIVE, "lab-request-001");
+        } catch (IllegalStateException ex) {
+            System.out.println("expected failure: " + ex.getMessage());
+        }
+        System.out.println("CUS-1002 still: " + service.findById("CUS-1001").orElseThrow().getStatus());
+
     }
 }

@@ -14,6 +14,10 @@
 - Shared `InMemoryCustomerRepository` instance for `CustomerValidator` + `DefaultCustomerService`
 - No `HashMap` / JDBC / `EntityManager` in the `service` package
 
-## TODO
+## Bean validation vs Customer Validation
+Bean validation used @NotBlank, @Size, etc. before it even became a DTO, and just checked the size of things and if they were blank
+CustomerValidator validates using ifs for business rules, not just if the data exists and is shaped right. 
 
-Fill after you complete the smoke demo (activate CUS-1002; illegal ACTIVE→PROSPECT leaves Amina ACTIVE).
+## Same status decision
+
+- Transitioning from ACTIVE -> ACTIVE results in an IllegalStateException.

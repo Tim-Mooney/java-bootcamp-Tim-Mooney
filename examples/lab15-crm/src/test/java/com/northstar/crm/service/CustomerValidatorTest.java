@@ -18,20 +18,28 @@ class CustomerValidatorTest {
     }
 
     @Test
-    void prospectToActiveAllowed() {
-        // TODO: validateTransition(PROSPECT, ACTIVE, "lab-request-001") does not throw
-        throw new UnsupportedOperationException("TODO: legal transition");
+    void allowsProspectToActive() {
+        var repo = new InMemoryCustomerRepository();
+        var validator = new CustomerValidator(repo);
+        assertDoesNotThrow(() ->
+                validator.validateTransition(
+                        CustomerStatus.PROSPECT, CustomerStatus.ACTIVE, "lab-request-001"));
     }
 
     @Test
-    void activeToProspectRejected() {
-        // TODO: assertThrows IllegalStateException; message contains lab-request-001
-        throw new UnsupportedOperationException("TODO: illegal transition");
+    void rejectsActiveToProspect() {
+        var validator = new CustomerValidator(new InMemoryCustomerRepository());
+        assertThrows(IllegalStateException.class, () ->
+                validator.validateTransition(
+                        CustomerStatus.ACTIVE, CustomerStatus.PROSPECT, "lab-request-001"));
     }
 
     @Test
     void duplicateIdRejected() {
-        // TODO: seed via repo.save(Customer.amina()); validateNew duplicate → throws
-        throw new UnsupportedOperationException("TODO: duplicate id");
+        repo.save(Customer.amina());
+        Customer duplicate = Customer.amina();
+
+        assertThrows(IllegalStateException.class,
+                () -> validator.validateNew(duplicate));
     }
 }
