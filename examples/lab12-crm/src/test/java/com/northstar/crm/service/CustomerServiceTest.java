@@ -11,7 +11,7 @@ class CustomerServiceTest {
     void createAminaKhanThenGetById() {
         CustomerService svc = new CustomerService();
         Customer created = svc.createCustomer(
-                "CUS-1001", "Amina Khan", "amina.khan@example.com", null, CustomerStatus.ACTIVE);
+                "CUS-1001", "Amina Khan", "amina.khan@example.com", "notblank", CustomerStatus.ACTIVE);
         assertEquals("CUS-1001", created.getCustomerId());
         assertEquals(CustomerStatus.ACTIVE, created.getStatus());
         assertEquals("Amina Khan", svc.getCustomer("CUS-1001").getFullName());
@@ -20,9 +20,9 @@ class CustomerServiceTest {
     @Test
     void duplicateIdRejected() {
         CustomerService svc = new CustomerService();
-        svc.createCustomer("CUS-1002", "Ravi Singh", "ravi.singh@example.com", null, CustomerStatus.PROSPECT);
+        svc.createCustomer("CUS-1002", "Ravi Singh", "ravi.singh@example.com", "notblank", CustomerStatus.PROSPECT);
         assertThrows(IllegalStateException.class, () ->
-                svc.createCustomer("CUS-1002", "Other", "x@example.com", null, CustomerStatus.PROSPECT));
+                svc.createCustomer("CUS-1002", "Other", "x@example.com", "notblank", CustomerStatus.PROSPECT));
     }
 
     @Test

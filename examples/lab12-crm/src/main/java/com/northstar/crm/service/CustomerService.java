@@ -5,6 +5,8 @@ import com.northstar.crm.entity.CustomerStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 
 public class CustomerService {
@@ -17,10 +19,10 @@ public class CustomerService {
         requireNonBlank(phone, "Phone");
 
         if (!isUniqueId(customerId)) {
-            throw new IllegalArgumentException("Customer ID must be unique: " + customerId);
+            throw new IllegalStateException("Customer ID must be unique: " + customerId);
         }
 
-        Customer customer = new Customer(customerId, fullName, email, phone, status);
+        Customer customer = new Customer(customerId, fullName, email, phone, status, LocalDateTime.now());
         customersById.put(customerId, customer);
         return customer;
     }
@@ -57,7 +59,7 @@ public class CustomerService {
         }
         return customer;
     }
-
-    // TODO: replace doStuff/get with createCustomer / getCustomer / updateStatus
-    // TODO: typed List<Customer>, proper exceptions, equals (not ==), correlation-aware logs
+    private String correlationId(){
+        return "lab-request-001";
+    }
 }

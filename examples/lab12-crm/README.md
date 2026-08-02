@@ -1,48 +1,31 @@
-# Lab 12 starter — timed path (~45 minutes)
+# Lab 12 — CRM Repository Pattern
 
-**Theme:** Coding standards — smell catalog + refactor messy service
+CRM service with repository abstraction for cleaner data access.
 
-## Copy into your workspace
+## How to Run
 
-**Windows (PowerShell)** — from this lab folder:
-
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\java-bootcamp\examples\lab12-crm" | Out-Null
-Copy-Item -Recurse -Force ".\starter\*" "$env:USERPROFILE\java-bootcamp\examples\lab12-crm\"
-cd $env:USERPROFILE\java-bootcamp\examples\lab12-crm
-```
-
-**macOS / Linux:**
-
+Compile and run tests:
 ```bash
-mkdir -p ~/java-bootcamp/examples/lab12-crm
-cp -R starter/. ~/java-bootcamp/examples/lab12-crm/
-cd ~/java-bootcamp/examples/lab12-crm
+cd examples/lab12-crm
+mvn clean test
 ```
 
-Full GUIDE: [`../LAB-12-GUIDE.md`](../LAB-12-GUIDE.md)
-
-## 45-minute checklist
-
-- [ ] Confirm `CustomerService.before.java.txt` frozen
-- [ ] Fill `docs/smells.md` (≥8 smells)
-- [ ] Refactor to `createCustomer` / `getCustomer` / `updateStatus` (remove `doStuff`)
-- [ ] Make `CustomerServiceTest` TODOs green
-- [ ] Note before/after in `docs/before-after.md`
-- [ ] Run smoke test
-
-## Smoke test
-
+Run the application:
 ```bash
-mvn -B test
+mvn -DskipTests compile exec:java -Dexec.mainClass="com.northstar.crm.Main"
 ```
 
-## Timed-path Pass criteria
+Or package and run:
+```bash
+mvn clean package
+java -jar target/customer-service.jar
+```
 
-| Criterion | Pass / Fail |
-| --------- | ----------- |
-| No `doStuff` remains; clean API present | Pass / Fail |
-| Tests green for CUS-1001 / unknown / duplicate | Pass / Fail |
-| smells.md has ≥8 items | Pass / Fail |
+## Cleanup
 
-Continue remaining GUIDE steps as homework / full path if needed.
+Remove build artifacts:
+```bash
+mvn clean
+```
+
+This deletes the `target/` directory and all compiled classes.
