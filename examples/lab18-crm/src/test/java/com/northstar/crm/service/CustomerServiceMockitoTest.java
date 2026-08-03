@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceMockitoTest {
@@ -25,26 +27,89 @@ class CustomerServiceMockitoTest {
 
     @BeforeEach
     void setUp() {
-        // TODO: real validator + service = new DefaultCustomerService(repository, validator)
-        // Prefer manual ctor wiring over @InjectMocks for clarity
-        throw new UnsupportedOperationException("TODO: wire mock repo + real validator");
+        validator = new CustomerValidator(repository);
+        service = new DefaultCustomerService(repository, validator);
     }
 
     @Test
-    void activateRaviUsesFindAndSave() {
-        // TODO: stub findById(CUS-1002) → ravi PROSPECT; changeStatus ACTIVE; verify save once
-        throw new UnsupportedOperationException("TODO: stub + verify activate");
+    void activatesProspectUsingStubbedRepository() {
+        Customer ravi = Customer.ravi();
+        //when(repository.findById("CUS-1002")).thenThrow(new RuntimeException("failure experiment 1"));
+
+        when(repository.findById("CUS-1002")).thenReturn(Optional.of(ravi));
+        when(repository.save(any(Customer.class))).thenAnswer(inv -> inv.getArgument(0));
+        //when(repository.findAll()).thenReturn(new ArrayList<>());
+
+        Customer result = service.changeStatus(
+                "CUS-1002", CustomerStatus.ACTIVE, "lab-request-001");
+
+        assertEquals(CustomerStatus.ACTIVE, result.getStatus());
+        verify(repository).findById("CUS-1002");
+        verify(repository).save(argThat(c ->
+                "CUS-1002".equals(c.getCustomerId()) && c.getStatus() == CustomerStatus.ACTIVE));
     }
 
     @Test
-    void notFoundNeverCallsSave() {
-        // TODO: stub empty Optional; assertThrows; verify(repository, never()).save(any())
-        throw new UnsupportedOperationException("TODO: never save on not-found");
+    void unknownCustomerDoesNotSave() {
+        when(repository.findById("CUS-9999")).thenReturn(Optional.empty());
+
+        assertThrows(BusinessException.class, () ->
+                service.changeStatus("CUS-9999", CustomerStatus.ACTIVE, "lab-request-001"));
+
+        verify(repository).findById("CUS-9999");
+        verify(repository, never()).save(any());
     }
 
     @Test
     void addCustomerCapturesSavedEntity() {
-        // TODO: ArgumentCaptor<Customer>; add Amina; assert captored id CUS-1001
-        throw new UnsupportedOperationException("TODO: ArgumentCaptor");
+        when(repository.existsById("CUS-1001")).thenReturn(false);
+        when(repository.existsByEmail("amina.khan@example.com")).thenReturn(false);
+        when(repository.save(any(Customer.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        service.addCustomer(Customer.amina());
+
+        ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
+        verify(repository).save(captor.capture());
+        assertEquals("CUS-1001", captor.getValue().getCustomerId());
+        assertEquals("Amina Khan", captor.getValue().getFullName());
+        assertEquals(CustomerStatus.ACTIVE, captor.getValue().getStatus());
     }
+
+    @Test
+    void addCustomerWithDuplicateEmailThrowsAndNeverSaves() {
+        when(repository.existsById("CUS-1001")).thenReturn(false);
+        when(repository.existsByEmail("amina.khan@example.com")).thenReturn(true);
+
+        assertThrows(BusinessException.class, () ->
+                service.addCustomer(Customer.amina()));
+
+        verify(repository).existsById("CUS-1001");
+        verify(repository).existsByEmail("amina.khan@example.com");
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void activeToProspectIsIllegalTransitionAndNeverSaves() {
+        Customer amina = Customer.amina();
+
+        when(repository.findById("CUS-1001")).thenReturn(Optional.of(amina));
+
+        assertThrows(BusinessException.class, () ->
+                service.changeStatus("CUS-1001", CustomerStatus.PROSPECT, "lab-request-001"));
+
+        verify(repository).findById("CUS-1001");
+        verify(repository, never()).save(any());
+    }
+
+//    @Test
+//    void demonstratesVerificationFailureWithoutReset() {
+//        Customer ravi = Customer.ravi();
+//        when(repository.findById("CUS-1002")).thenReturn(Optional.of(ravi));
+//        when(repository.save(any(Customer.class))).thenAnswer(inv -> inv.getArgument(0));
+//
+//        service.findById("CUS-1002");
+//        service.findById("CUS-1002");
+//
+//        verify(repository, times(1)).save(any(Customer.class));
+//    }
 }
