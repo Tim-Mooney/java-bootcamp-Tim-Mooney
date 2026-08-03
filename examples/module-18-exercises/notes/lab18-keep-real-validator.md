@@ -1,20 +1,16 @@
 # Lab 18 — When to Keep Real Validator
 
-## Step 1 — Mock repo
+## Mock repo?
+Mock repo - I/O boundary, slow, non-deterministic
 
-Mock CustomerRepository — I/O boundary.
+## Real validator?
+real validator - deterministic, fast
 
-## Step 2 — Real validator?
+## Mock notifier?
+mock notifier - don't want email or I/O 
 
-Keep a pure StatusValidator real if it is deterministic and fast.
-
-## Step 3 — Mock notifier
-
-Mock notifier to avoid email/IO in unit tests.
-
-## Step 4 — Rule
-
-Write: mock I/O and unstable deps; keep pure domain helpers real when cheap.
+## Rule
+mock I/O and unstable deps; keep pure domain helpers real when cheap
 
 ## Scope
-Pre-lab only — do not finish the full graded lab in this exercise.
+Pre-lab only.nly — do not finish the full graded lab in this exercise.
