@@ -1,43 +1,53 @@
-# Lab 17 — CRM Tests & Coverage
+# Lab 17 starter — timed path (~45 minutes)
 
-Simple module focused on JUnit service tests and business-exception behavior.
+**Theme:** JUnit 5 service tests + parameterized transitions + JaCoCo ≥80%
 
-## How to Run Main (quick)
+## Copy into your workspace
 
-```bash
-cd examples/lab17-crm
-mvn -q org.codehaus.mojo:exec-maven-plugin:3.5.0:java -Dexec.mainClass=com.northstar.crm.Main
+Do **not** grade work only inside the course `labs/` clone. Copy this `starter/` into your bootcamp examples tree as `lab17-crm`.
+
+**Windows (PowerShell)** — from this lab folder:
+
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\java-bootcamp\examples\lab17-crm" | Out-Null
+Copy-Item -Recurse -Force ".\starter\*" "$env:USERPROFILE\java-bootcamp\examples\lab17-crm\"
+cd $env:USERPROFILE\java-bootcamp\examples\lab17-crm
 ```
 
-Or compile & run:
+**macOS / Linux:**
 
 ```bash
-mvn clean compile exec:java -Dexec.mainClass="com.northstar.crm.Main"
+mkdir -p ~/java-bootcamp/examples/lab17-crm
+cp -R starter/. ~/java-bootcamp/examples/lab17-crm/
+cd ~/java-bootcamp/examples/lab17-crm
 ```
 
-## Run Tests
+Full GUIDE: [`../LAB-17-GUIDE.md`](../LAB-17-GUIDE.md)
+
+## 45-minute checklist
+
+- [ ] Wire `CustomerServiceTests` @BeforeEach with fresh repo/validator/service
+- [ ] Implement happy + negative tests (duplicate, illegal transition, not-found)
+- [ ] Complete parameterized legal/illegal transition tests
+- [ ] Confirm JaCoCo check on `com.northstar.crm.service` (≥0.80); optional deliberate 0.99 fail
+- [ ] Fill `docs/junit-runbook.md`; run smoke test
+
+## Smoke test
 
 ```bash
-mvn clean test
+mvn -B clean test
+mvn -B clean verify
 ```
 
-This lab's tests cover duplicate ID/email conflicts (BusinessException), listAll(), and correlation-id propagation. Test fixtures: CUS-1001 (Amina), CUS-1002 (Ravi).
+Evidence under `~/java-bootcamp/notes/screenshots/lab-17/` (redact secrets).
 
-## Build & Package
+## Timed-path Pass criteria
 
-```bash
-mvn clean package
-java -jar target/customer-service.jar
-```
+| Criterion | Pass / Fail |
+| --------- | ----------- |
+| CustomerServiceTests green | Pass / Fail |
+| Parameterized transition tests green | Pass / Fail |
+| mvn clean verify passes JaCoCo gate (≥80% on service package) | Pass / Fail |
+| Runbook documents commands + evidence | Pass / Fail |
 
-## Cleanup
-
-```bash
-mvn clean
-```
-
-Notes
-
-- No Spring — pure Java and JUnit.
-- Coverage checks (JaCoCo) may be configured in `pom.xml` for a minimum threshold.
-
+Continue remaining GUIDE steps as homework / full path if needed.

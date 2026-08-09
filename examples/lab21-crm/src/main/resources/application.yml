@@ -1,0 +1,19 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info   # starter lab-only set (prometheus optional)
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,crmReadinessIndicator
+  metrics:
+    tags:
+      application: northstar-crm
+
+server:
+  port: 8080
