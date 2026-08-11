@@ -2,15 +2,17 @@
 
 ## Produce → consume
 
-TODO: 2–3 sentences on produce → broker → consume for a customer event.
+A producer serializes a customer event and sends it to a broker keyed by customerId.
+The broker appends it to the log on whichever partition that key hashes to.
+Then it sits there and waits to be consumed by a consumer
 
 ## Keying
 
-TODO: why key = `customerId` (ordering per customer).
+Key = customerId because Kafka only guarantees ordering within a partition, not across the whole topic, and the default partitioner routes every record with the same key to the same partition
 
 ## DLQ
 
-TODO: purpose of `crm.customer-events.v1.dlq` for Lab 31.
+crm.customer-events.v1.dlq exists so Lab 31's consumer(s) have somewhere to route records they can't process instead of blocking the partition or losing data
 
 replay/--from-beginning is a learning tool. Production replay needs a policy and idempotent consumers.
 
