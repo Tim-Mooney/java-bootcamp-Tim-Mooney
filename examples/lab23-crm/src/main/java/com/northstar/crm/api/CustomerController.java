@@ -4,6 +4,8 @@ import com.northstar.crm.model.Customer;
 import com.northstar.crm.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -24,6 +26,6 @@ public class CustomerController {
 
   @GetMapping("/{id}")
   public Customer get(@PathVariable String id) {
-    return customerService.get(id);
+      return customerService.get(id);
   }
 }

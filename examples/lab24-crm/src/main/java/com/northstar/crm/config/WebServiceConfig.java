@@ -22,18 +22,17 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     MessageDispatcherServlet servlet = new MessageDispatcherServlet();
     servlet.setApplicationContext(applicationContext);
     servlet.setTransformWsdlLocations(true);
-    // TODO: confirm mapping "/ws/*"
     return new ServletRegistrationBean<>(servlet, "/ws/*");
   }
 
   @Bean(name = "customers")
-  public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema customersSchema) {
-    DefaultWsdl11Definition wsdl = new DefaultWsdl11Definition();
-    // TODO: setPortTypeName("CustomersPort")
-    // TODO: setLocationUri("/ws")
-    // TODO: setTargetNamespace("http://northstar.com/crm/customers")
-    // TODO: setSchema(customersSchema)
-    return wsdl;
+  DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema customersSchema) {
+    DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+    definition.setPortTypeName("CustomersPort");
+    definition.setLocationUri("/ws");
+    definition.setTargetNamespace("http://northstar.com/crm/customers");
+    definition.setSchema(customersSchema);
+    return definition;
   }
 
   @Bean
