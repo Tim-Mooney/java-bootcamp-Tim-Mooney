@@ -15,6 +15,9 @@ class CustomerEventIntegrationTest {
 
   @Test
   void contextLoads() {
-    // TODO timed path: publish Amina event and await listener / store mark
+    publisher.publish(createdEvent); // CUS-1001 / lab-request-001
+    await().atMost(Duration.ofSeconds(10)).untilAsserted(() ->
+            assertThat(handler.events()).extracting(CustomerEvent::eventId)
+                    .contains(createdEvent.eventId()));
   }
 }

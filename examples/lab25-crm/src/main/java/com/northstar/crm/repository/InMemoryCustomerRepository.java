@@ -14,30 +14,28 @@ public class InMemoryCustomerRepository implements CustomerRepository {
   private final Map<String, Customer> store = new ConcurrentHashMap<>();
 
   public InMemoryCustomerRepository() {
-    // TODO: seed Customer.amina() and Customer.ravi() into store
+    store.put(Customer.amina().getId(), Customer.amina());
+    store.put(Customer.ravi().getId(), Customer.ravi());
   }
 
   @Override
   public Customer save(Customer customer) {
-    // TODO: put and return
-    throw new UnsupportedOperationException("TODO: save");
+    store.put(customer.getId(), customer);
+    return customer;
   }
 
   @Override
   public Optional<Customer> findById(String id) {
-    // TODO: Optional.ofNullable(store.get(id))
-    throw new UnsupportedOperationException("TODO: findById");
+    return Optional.ofNullable(store.get(id));
   }
 
   @Override
   public List<Customer> findAll() {
-    // TODO: return new ArrayList<>(store.values())
-    throw new UnsupportedOperationException("TODO: findAll");
+    return new ArrayList<>(store.values());
   }
 
   @Override
   public boolean existsById(String id) {
-    // TODO: store.containsKey(id)
-    throw new UnsupportedOperationException("TODO: existsById");
+    return store.containsKey(id);
   }
 }

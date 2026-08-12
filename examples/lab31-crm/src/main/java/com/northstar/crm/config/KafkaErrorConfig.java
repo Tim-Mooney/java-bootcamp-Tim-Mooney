@@ -7,15 +7,20 @@ import org.springframework.kafka.listener.CommonErrorHandler;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
+import com.northstar.crm.exception.UnsupportedEventVesionException;
+import com.northstar.crm.exception.InvalidCustomerEventException;
+
 
 @Configuration
 public class KafkaErrorConfig {
 
   @Bean
   public CommonErrorHandler kafkaErrorHandler(KafkaTemplate<Object, Object> template) {
-    // TODO: DeadLetterPublishingRecoverer + DefaultErrorHandler with bounded FixedBackOff
-    // TODO: classify non-retryable contract errors (optional for timed path)
-    DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(template);
-    return new DefaultErrorHandler(recoverer, new FixedBackOff(500L, 2L));
+    var recoverer = new DeadLetterPublishingRecoverer(template);
+    var handler = new DefaultErrorHandler(recoverer, new FixedBackOff(1000, 2));
+    handler.addNotRetryableExceptions(
+            InvalidCustomerEventException.class,
+            UnsupportedEventVersionException.class);
+    return handler;
   }
 }
