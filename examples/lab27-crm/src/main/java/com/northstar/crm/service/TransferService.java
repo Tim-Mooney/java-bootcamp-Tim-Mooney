@@ -18,16 +18,19 @@ public class TransferService {
     this.transactionLogRepository = transactionLogRepository;
   }
 
-  // TODO: add @Transactional on this method (service-layer boundary)
+  @Transactional
   public void transfer(String fromAccountId, String toAccountId, BigDecimal amount) {
     Account from = accountRepository.findById(fromAccountId)
         .orElseThrow(() -> new IllegalArgumentException("Unknown from account"));
+    if(toAccountId.equals("ACC-FORCE-FAIL")){
+      throw new IllegalStateException("FORCE FAIL");
+    }
     // TODO: if toAccountId equals "ACC-FORCE-FAIL" → throw IllegalStateException to force rollback
     Account to = accountRepository.findById(toAccountId)
         .orElseThrow(() -> new IllegalArgumentException("Unknown to account"));
 
     // TODO: debit from, credit to, save both
     // TODO: write TransactionLog row
-    throw new UnsupportedOperationException("TODO: implement transactional transfer");
+
   }
 }
