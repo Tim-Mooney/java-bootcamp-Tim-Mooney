@@ -20,7 +20,20 @@ class TransferServiceTest {
     BigDecimal before = accounts.findById("ACC-MAIN-1001").orElseThrow().getBalance();
     assertThrows(Exception.class, () ->
         transferService.transfer("ACC-MAIN-1001", "ACC-FORCE-FAIL", new BigDecimal("10.00")));
-    // TODO: assert MAIN balance equals before after rollback (passes once @Transactional works)
     assertEquals(before, accounts.findById("ACC-MAIN-1001").orElseThrow().getBalance());
+  }
+
+  @Test
+  void happyPathMovesFunds(){
+    // transfer 5.00 MAIN→LOYALTY
+    BigDecimal beforeMain = accounts.findById("ACC-MAIN-1001").orElseThrow().getBalance();
+    BigDecimal beforeLoyalty = accounts.findById("ACC-LOYALTY-1001").orElseThrow().getBalance();
+
+    transferService.transfer("ACC-MAIN-1001", "ACC-LOYALTY-1001", new BigDecimal("500"));
+
+    assertEquals(beforeMain.subtract(new BigDecimal("500")), accounts.findById("ACC-MAIN-1001").orElseThrow().getBalance());
+    assertEquals(beforeLoyalty.add(new BigDecimal("500")), accounts.findById("ACC-LOYALTY-1001").orElseThrow().getBalance());
+
+
   }
 }

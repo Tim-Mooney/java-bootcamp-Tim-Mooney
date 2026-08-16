@@ -12,17 +12,54 @@ public class JwtService {
   }
 
   public String issueToken(String subject, String role) {
-    // TODO: build JWT or lab stub "lab."+subject+"."+role — do not log raw tokens
-    throw new UnsupportedOperationException("TODO: issueToken");
+    String sig = Integer.toHexString(secret.hashCode());
+    String token = "lab." + subject + "." + role + "." + sig;
+    return token;
   }
 
   public String parseSubject(String token) {
-    // TODO: validate signature/expiry; return subject
-    throw new UnsupportedOperationException("TODO: parseSubject");
+    if (token == null || !token.startsWith("lab.")) {
+      throw new IllegalArgumentException("Invalid token");
+    }
+
+    String[] parts = token.split("\\.");
+    if (parts.length != 4) {
+      throw new IllegalArgumentException("Invalid token");
+    }
+
+    String subject = parts[1];
+    String role = parts[2];
+    String sig = parts[3];
+
+    String expectedSig = Integer.toHexString(secret.hashCode());
+    if (!expectedSig.equals(sig)) {
+      throw new IllegalArgumentException("Invalid token signature");
+    }
+
+    return subject;
   }
 
   public String parseRole(String token) {
-    // TODO: return AGENT or ADMIN claim
-    throw new UnsupportedOperationException("TODO: parseRole");
+    if (token == null || !token.startsWith("lab.")) {
+      throw new IllegalArgumentException("Invalid token");
+    }
+
+    String[] parts = token.split("\\.");
+    if (parts.length != 4) {
+      throw new IllegalArgumentException("Invalid token");
+    }
+
+    String subject = parts[1];
+    String role = parts[2];
+    String sig = parts[3];
+
+    String expectedSig = Integer.toHexString(secret.hashCode());
+    if (!expectedSig.equals(sig)) {
+      throw new IllegalArgumentException("Invalid token signature");
+    }
+    if(!role.equals("AGENT") && !role.equals("ADMIN")){
+      throw new IllegalArgumentException("Invalid role");
+    }
+    return role;
   }
 }
