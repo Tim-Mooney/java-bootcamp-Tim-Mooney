@@ -1,13 +1,12 @@
 package com.northstar.crm.dto;
 
-// TODO: add jakarta.validation annotations:
-// @NotBlank on id, name, email, status
-// @Email on email
+import jakarta.validation.constraints.*;
+
 public class CustomerRequest {
-  private String id;
-  private String name;
-  private String email;
-  private String status;
+  @NotBlank private String id;
+  @NotBlank private String name;
+  @NotBlank @Email private String email;
+  @NotBlank private String status;
 
   public String getId() { return id; }
   public void setId(String id) { this.id = id; }
