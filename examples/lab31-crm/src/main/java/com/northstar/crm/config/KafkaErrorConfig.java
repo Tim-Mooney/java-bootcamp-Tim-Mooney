@@ -7,7 +7,7 @@ import org.springframework.kafka.listener.CommonErrorHandler;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
-import com.northstar.crm.exception.UnsupportedEventVesionException;
+import com.northstar.crm.exception.UnsupportedEventVersionException;
 import com.northstar.crm.exception.InvalidCustomerEventException;
 
 

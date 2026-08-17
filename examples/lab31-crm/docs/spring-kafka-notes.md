@@ -2,12 +2,19 @@
 
 ## Publish path
 
-TODO: when create/update customer emits `CustomerEvent`.
+When a customer is created or updated, the service builds a `CustomerEvent`
+record and calls `CustomerEventPublisher.publish(event)`.
+
+That method sends it via `KafkaTemplate` to the topic configured in
+`crm.kafka.customer-events-topic` (`crm.customer-events.v1`), using
+`event.customerId()` as the record key. The send is
+async; `whenComplete` logs `customer_event_published` on success (with
+partition/offset) or `customer_event_publish_failed` on error.
+
 
 ## Idempotency
 
-TODO: how `ProcessedEventStore` prevents duplicate side effects.
-
-## DLT
-
-TODO: DLT topic naming vs Lab 30 `.dlq`.
+`ProcessedEventStore` wraps a `ConcurrentHashMap`-backed `Set<String>` of
+seen `eventId`s. `markIfNew(eventId)` is really just `Set.add(eventId)` —
+it returns `true` only the first time a given eventId is seen, `false` on
+every call after that.

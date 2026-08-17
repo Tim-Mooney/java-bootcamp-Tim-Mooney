@@ -21,7 +21,7 @@ public class CustomerEventPublisher {
   }
 
   public void publish(CustomerEvent event) {
-    return kafkaTemplate.send(topic, event.customerId(), event)
+      kafkaTemplate.send(topic, event.customerId(), event)
             .whenComplete((result, error) -> {
               if (error != null)
                 log.error("customer_event_publish_failed id={}", event.eventId(), error);

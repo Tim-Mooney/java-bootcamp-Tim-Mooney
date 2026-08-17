@@ -34,10 +34,5 @@ public class CustomerEventListener {
       return;
     }
     log.info("CorrelationId = "+ event.correlationId() + " customerId = "+ event.customerId());
-    handler.handle(event);
-    // TODO: reject when key == null or key does not equal event.customerId()
-    // TODO: skip when !store.markIfNew(event.eventId())
-    // TODO: log correlationId + customerId (no PII beyond fixture ids)
-    //throw new UnsupportedOperationException("TODO: validate key, idempotency, handle");
   }
 }
