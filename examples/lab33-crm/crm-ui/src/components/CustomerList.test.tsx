@@ -7,5 +7,6 @@ describe('CustomerList', () => {
     render(<CustomerList customers={seedCustomers} onEdit={() => {}} />)
     // TODO: assert Amina / Ravi visible (getByText or getByRole)
     expect(screen.getByText(/Amina Khan/i)).toBeInTheDocument()
+    expect(screen.getByText(/Ravi Singh/i)).toBeInTheDocument()
   })
 })

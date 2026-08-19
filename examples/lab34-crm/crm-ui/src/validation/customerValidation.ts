@@ -6,7 +6,7 @@ const VALID_STATUSES: CustomerDraft['status'][] = ['PROSPECT', 'ACTIVE', 'CLOSED
 
 export function validateCustomerDraft(draft: CustomerDraft): FieldErrors {
   const errors: FieldErrors = {}
-  if(!draft.fullName) { //might need to add .trim()
+  if(!draft.fullName) {
     errors.fullName = "Full name is required"
   }
   if(!draft.email){

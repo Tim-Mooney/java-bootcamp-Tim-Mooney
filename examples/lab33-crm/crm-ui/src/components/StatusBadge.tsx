@@ -1,6 +1,15 @@
-import type { CustomerStatus } from '../types/customer'
+import type { CustomerStatus } from "../types/customer";
+
+const labels: Record<CustomerStatus, string> = {
+  PROSPECT: "Prospect",
+  ACTIVE: "Active",
+  CLOSED: "Closed",
+};
 
 export function StatusBadge({ status }: { status: CustomerStatus }) {
-  // TODO: render accessible status text (role or aria-label); style by status
-  return <span className="badge">{/* TODO */ status}</span>
+  return (
+      <span className={`status status--${status.toLowerCase()}`}>
+      {labels[status]}
+    </span>
+  );
 }

@@ -13,7 +13,6 @@ export function CustomerList({
   return (
     <ul>
       {customers.map((c) => (
-        // TODO: key must be c.customerId (never array index)
         <li key={c.customerId}>
           <CustomerCard customer={c} onEdit={onEdit} />
         </li>

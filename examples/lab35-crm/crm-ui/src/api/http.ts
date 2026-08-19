@@ -1,5 +1,6 @@
 import { ApiError } from './ApiError'
 
+// @ts-ignore
 const baseUrl = import.meta.env.VITE_API_BASE_URL as string
 
 export async function http<T>(
@@ -7,7 +8,16 @@ export async function http<T>(
   init: RequestInit = {},
   signal?: AbortSignal,
 ): Promise<T> {
-  // TODO: fetch(`${baseUrl}${path}`) with signal; map failures to ApiError
-  // TODO: never attach secrets in query string
-  throw new ApiError('TODO: implement http helper', 'network')
+  let response: Response
+  try {
+    response = await fetch(`${baseUrl}${path}`, { ...init, signal })
+  } catch {
+    throw new ApiError('Network request failed', 'network')
+  }
+
+  if (!response.ok) {
+    throw new ApiError(`Request failed with status ${response.status}`, 'http')
+  }
+
+  return await (response.json() as Promise<T>)
 }

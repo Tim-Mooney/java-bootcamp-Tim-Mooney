@@ -2,8 +2,13 @@
 
 ## Instance name
 
-TODO: why all annotations share `accountProfile`.
+why all annotations share `accountProfile`?
+It has to be the same string on all three because there's exactly one call site they're
+all protecting
+
 
 ## Truthful fallback
 
-TODO: why `available=false` must never look like a successful funded account.
+why `available=false` must never look like a successful funded account?
+there would be no way to tell if an account is representing unknown data and fallback would break because nobody knows if the account is correct.
+

@@ -15,16 +15,15 @@ public class AccountProfileService {
     this.client = client;
   }
 
-  // TODO: add @CircuitBreaker(name = "accountProfile", fallbackMethod = "fallback")
-  // TODO: add @Retry(name = "accountProfile")
-  // TODO: add @TimeLimiter(name = "accountProfile")
+  @CircuitBreaker(name = "accountProfile")
+  @Retry(name = "accountProfile", fallbackMethod = "fallback")
+  @TimeLimiter(name = "accountProfile")
   public CompletableFuture<AccountSummary> find(String customerId) {
     return CompletableFuture.supplyAsync(() -> client.fetch(customerId));
   }
 
   @SuppressWarnings("unused")
   private CompletableFuture<AccountSummary> fallback(String customerId, Throwable ex) {
-    // TODO: return completed future of AccountSummary.unavailable(customerId)
-    throw new UnsupportedOperationException("TODO: truthful fallback", ex);
+    return CompletableFuture.completedFuture(AccountSummary.unavailable(customerId));
   }
 }

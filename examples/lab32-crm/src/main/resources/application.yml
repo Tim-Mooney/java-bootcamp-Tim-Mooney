@@ -13,7 +13,7 @@ resilience4j:
         slidingWindowSize: 6
         minimumNumberOfCalls: 4
         failureRateThreshold: 50
-        waitDurationInOpenState: 2s
+        waitDurationInOpenState: 2000ms
   retry:
     instances:
       accountProfile:
@@ -22,7 +22,7 @@ resilience4j:
   timelimiter:
     instances:
       accountProfile:
-        timeoutDuration: 1.5s
+        timeoutDuration: 1500ms
 
 management:
   endpoints:
