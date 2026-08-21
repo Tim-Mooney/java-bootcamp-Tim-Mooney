@@ -26,5 +26,3 @@ CREATE TABLE IF NOT EXISTS account (
 
 -- indexes supporting email lookup and status filters
 
-CREATE INDEX idx_customer_email ON customer (email);
-CREATE INDEX idx_customer_status ON customer (status);
